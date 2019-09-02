@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+# goal is to discover clients on the network
+
+# create arp request to the broadcast MAC for IP
+# send packet and receive response
+# parse the response
+# print the result
+
+
+import scapy.all as scapy
+
+def scan(ip):
+    arp_request = scapy.ARP(pdst=ip)
+    arp_request.show()
+    broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
+    broadcast.show()
+    arp_request_broadcast = broadcast/arp_request
+    print(arp_request_broadcast.summary())
+    arp_request_broadcast.show()
+
+    # scapy.ls(scapy.ARP())
+
+scan("10.0.2.1/24")
